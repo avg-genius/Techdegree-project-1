@@ -4,17 +4,13 @@ Project 1 - The Number Guessing Game
 --------------------------------
 """
 
-# Import the random module.
 import random
 
-# Create the start_game function.
 def start_game():
     print("Welcome to the Number Guessing Game!")
     print("Try to guess the number between 1 and 100.")
 
     # Initialize game variables
-    solution = random.randint(1, 100)
-    attempts = 0
     high_score = float('inf')  # Initialize high score to positive infinity
 
     while True:
@@ -25,16 +21,15 @@ def start_game():
         choice = input("Enter your choice (1 or 2): ")
 
         if choice == "1":
-            attempts = play_game(solution)
-            if attempts < high_score:
-                high_score = attempts
+            play_game(high_score)
         elif choice == "2":
             print("Thanks for playing! Goodbye.")
             break
         else:
             print("Invalid choice. Please enter 1 or 2.")
 
-def play_game(solution):
+def play_game(high_score):
+    solution = random.randint(1, 100)
     attempts = 0
 
     while True:
@@ -50,18 +45,21 @@ def play_game(solution):
                 print("It's lower.")
             else:
                 print("Congratulations! You guessed the correct number in {} attempts.".format(attempts))
+                if attempts < high_score:
+                    print("New High Score!")
                 play_again = input("Do you want to play again? (yes/no): ").lower()
                 if play_again == "yes":
-                    return attempts
+                    return
                 else:
                     print("Thanks for playing! Goodbye.")
                     exit()
 
         except ValueError:
-            print("Invalid input. Please enter a valid number.")
+            print("Invalid input. Please enter a valid integer.")
 
 if __name__ == "__main__":
     start_game()
+
 
 # Write your code inside this function.
 
